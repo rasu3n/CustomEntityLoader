@@ -6,7 +6,7 @@ namespace Rush2929\CustomEntityLoader;
 
 use pocketmine\plugin\PluginBase;
 
-class Main extends PluginBase {
+final class CustomEntityLoader extends PluginBase {
 
 	//TODO
 
