@@ -1,0 +1,7 @@
+---
+name: CustomEntityLoader
+version: 0.0.1
+main: Rush2929\CustomEntityLoader\Main
+api: 4.0.0-BETA3
+src-namespace-prefix: Rush2929\CustomEntityLoader
+...

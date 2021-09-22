@@ -1,0 +1,12 @@
+{
+	"name": "rush2929/customentityloader",
+	"description": "",
+	"minimum-stability": "dev",
+	"license": "",
+	"require": {
+		"php": "^8.0"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "0.12.99"
+	}
+}
