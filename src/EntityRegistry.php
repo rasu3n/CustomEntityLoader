@@ -13,7 +13,6 @@ use pocketmine\utils\Limits;
 final class EntityRegistry {
 
 	public const TAG_ID_LIST = "idlist";
-	private const THE_IDENTIFIER_IS_INVALID = "The identifier is invalid.";
 
 	public static function validateIdentifier(string $identifier) : void {
 		//TODO: implements validation
@@ -34,7 +33,7 @@ final class EntityRegistry {
 	public function add(EntityRegistryEntry $entry) : self {
 		$identifier = $entry->getIdentifier();
 		if (isset($this->entries[$identifier])) {
-			throw new InvalidStateException(self::THE_IDENTIFIER_IS_INVALID . " The identifier is already in use.");
+			throw new InvalidStateException("The identifier is invalid. The identifier is already in use.");
 		}
 
 		$this->entries[$identifier] = $entry;
