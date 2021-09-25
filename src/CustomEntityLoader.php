@@ -7,12 +7,12 @@ namespace Rush2929\CustomEntityLoader;
 use pocketmine\event\EventPriority;
 use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\network\mcpe\cache\StaticPacketCache;
 use pocketmine\network\mcpe\protocol\AvailableActorIdentifiersPacket;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use Webmozart\PathUtil\Path;
+use function assert;
 
 final class CustomEntityLoader extends PluginBase {
 
@@ -31,8 +31,8 @@ final class CustomEntityLoader extends PluginBase {
 		$this->saveResource(self::ENTITIES_FILE_EXAMPLE);
 		/** @var CompoundTag $root */
 		$root = StaticPacketCache::getInstance()->getAvailableActorIdentifiers()->identifiers->getRoot();
-		/** @var ListTag $idList */
 		$idList = $root->getListTag(EntityRegistry::TAG_ID_LIST);
+		assert($idList !== null);
 		/** @var CompoundTag $tag */
 		foreach ($idList as $tag) {
 			$registry->add(EntityRegistryEntry::fromTag($tag));
