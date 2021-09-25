@@ -34,14 +34,16 @@ final class CustomEntityLoader extends PluginBase {
 		}
 	}
 
-	protected function onEnable() : void {
+	protected function onLoad() : void {
 		$registry = self::getCustomEntityRegistry();
 		$this->saveResource(self::ENTITIES_FILE);
 		$this->saveResource(self::ENTITIES_FILE_EXAMPLE);
 		foreach ((new Config(Path::join($this->getDataFolder(), self::ENTITIES_FILE)))->getAll() as $entity) {
 			$registry->add(EntityRegistryEntry::fromArray($entity));
 		}
+	}
 
+	protected function onEnable() : void {
 		$this->getServer()->getPluginManager()->registerEvent(DataPacketSendEvent::class, function(DataPacketSendEvent $ev) : void {
 			if (self::$isAlreadySentAvailableActorIdentifiers) {
 				return;
