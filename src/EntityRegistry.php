@@ -57,6 +57,14 @@ final class EntityRegistry {
 		return $this->entries[$identifier] ?? null;
 	}
 
+	public function getFromRuntimeId(int $runtimeId) : ?EntityRegistryEntry {
+		if (($identifier = $this->runtimeIdToIdentifierMap[$runtimeId] ?? null) !== null) {
+			return $this->get($identifier);
+		}
+
+		return null;
+	}
+
 	/**
 	 * @return array<string, EntityRegistryEntry>
 	 */
