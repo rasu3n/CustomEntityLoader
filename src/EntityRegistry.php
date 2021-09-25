@@ -30,17 +30,25 @@ final class EntityRegistry {
 
 	/** @var array<string, EntityRegistryEntry> */
 	private array $entries = [];
+	/** @var array<int, string> */
+	private array $runtimeIdToIdentifierMap = [];
 	private bool $isDirty = false;
 	/** @var CacheableNbt<CompoundTag>|null */
 	private ?CacheableNbt $identifiers = null;
 
 	public function add(EntityRegistryEntry $entry) : self {
 		$identifier = $entry->getIdentifier();
+		$runtimeId = $entry->getRuntimeId();
 		if (isset($this->entries[$identifier])) {
 			throw new InvalidStateException("The identifier is invalid. The identifier is already in use.");
+		} else if ($runtimeId !== null && ($duplicatedIdentifier = $this->runtimeIdToIdentifierMap[$runtimeId] ?? null) !== null) {
+			throw new InvalidStateException("The runtimeId is invalid. The runtime ID is duplicated as \"$duplicatedIdentifier\". (\"$runtimeId\")");
 		}
 
 		$this->entries[$identifier] = $entry;
+		if ($runtimeId !== null) {
+			$this->runtimeIdToIdentifierMap[$runtimeId] = $identifier;
+		}
 		$this->isDirty = true;
 		return $this;
 	}
@@ -59,6 +67,9 @@ final class EntityRegistry {
 	public function remove(string $identifier) : self {
 		if (!isset($this->entries[$identifier])) {
 			throw new InvalidArgumentException("The specified identifier has not been registered.");
+		}
+		if (($runtimeId = $this->entries[$identifier]->getRuntimeId()) !== null) {
+			unset($this->runtimeIdToIdentifierMap[$runtimeId]);
 		}
 		unset($this->entries[$identifier]);
 		$this->isDirty = true;
