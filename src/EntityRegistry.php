@@ -10,13 +10,16 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\network\mcpe\protocol\types\CacheableNbt;
 use pocketmine\utils\Limits;
+use function preg_match;
 
 final class EntityRegistry {
 
 	public const TAG_ID_LIST = "idlist";
 
 	public static function validateIdentifier(string $identifier) : void {
-		//TODO: implements validation
+		if (preg_match("/^[a-z0-9_]+:[a-z0-9_]+$/", $identifier) !== 1) {
+			throw new InvalidStateException("The identifier is invalid. The identifier must be of the form \"namespace:name\". (Only the characters \"a-z0-9_\" are allowed.)");
+		}
 	}
 
 	public static function validateRuntimeId(int $runtimeId) : void {
