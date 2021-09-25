@@ -26,35 +26,35 @@ final class EntityRegistry {
 	}
 
 	/** @var array<string, EntityRegistryEntry> */
-	private array $entities = [];
+	private array $entries = [];
 	private bool $isDirty = false;
 	/** @var CacheableNbt<CompoundTag>|null */
 	private ?CacheableNbt $identifiers = null;
 
 	public function add(EntityRegistryEntry $entry) : self {
 		$identifier = $entry->getIdentifier();
-		if (isset($this->entities[$identifier])) {
+		if (isset($this->entries[$identifier])) {
 			throw new InvalidStateException(self::THE_IDENTIFIER_IS_INVALID . " The identifier is already in use.");
 		}
 
-		$this->entities[$identifier] = $entry;
+		$this->entries[$identifier] = $entry;
 		$this->isDirty = true;
 		return $this;
 	}
 
 	public function get(string $identifier) : ?EntityRegistryEntry {
-		return $this->entities[$identifier] ?? null;
+		return $this->entries[$identifier] ?? null;
 	}
 
 	/**
 	 * @return array<string, EntityRegistryEntry>
 	 */
 	public function getAll() : array {
-		return $this->entities;
+		return $this->entries;
 	}
 
 	public function remove(string $identifier) : self {
-		unset($this->entities[$identifier]); //TODO: If the identifier is not actually registered, it throws an exception.
+		unset($this->entries[$identifier]); //TODO: If the identifier is not actually registered, it throws an exception.
 		$this->isDirty = true;
 		return $this;
 	}
@@ -65,7 +65,7 @@ final class EntityRegistry {
 	public function getIdentifierTag() : CacheableNbt {
 		if ($this->identifiers === null || $this->isDirty) {
 			$listTag = new ListTag();
-			foreach ($this->entities as $entry) {
+			foreach ($this->entries as $entry) {
 				$entryTag = CompoundTag::create();
 				$entry->write($entryTag);
 				$listTag->push($entryTag);
