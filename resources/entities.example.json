@@ -1,0 +1,9 @@
+[
+	{
+		"identifier": "example:example_entity", //required(string)
+		"behavior_id": "", //not required(string) [default: ""]
+		"runtime_id": 1000, //not required(number|null) [default: null]
+		"has_spawnegg": false, //not required(boolean) [default: false]
+		"is_summonable": false //not required(boolean) [default: false]
+	}
+]

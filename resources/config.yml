@@ -1,7 +1,0 @@
-entities:
-#  example:
-#    identifier: "example:example_entity" # required
-#    behavior_id: "" # https://wiki.bedrock.dev/entities/runtime-identifier.html
-#    runtime_id: 1000
-#    has_spawnegg: false
-#    is_summonable: false

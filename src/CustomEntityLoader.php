@@ -11,10 +11,14 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\network\mcpe\protocol\AvailableActorIdentifiersPacket;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
+use Webmozart\PathUtil\Path;
 
 final class CustomEntityLoader extends PluginBase {
 
 	private const TAG_ID_LIST = "idlist";
+	private const ENTITIES_FILE = "entities.json";
+	private const ENTITIES_FILE_EXAMPLE = "entities.example.json";
 
 	private static ?EntityRegistry $registry = null;
 
@@ -32,7 +36,9 @@ final class CustomEntityLoader extends PluginBase {
 
 	protected function onEnable() : void {
 		$registry = self::getCustomEntityRegistry();
-		foreach ($this->getConfig()->get(ConfigKeys::ENTITIES, []) as $entity) {
+		$this->saveResource(self::ENTITIES_FILE);
+		$this->saveResource(self::ENTITIES_FILE_EXAMPLE);
+		foreach ((new Config(Path::join($this->getDataFolder(), self::ENTITIES_FILE)))->getAll() as $entity) {
 			$registry->add(EntityRegistryEntry::fromArray($entity));
 		}
 
