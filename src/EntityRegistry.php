@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rush2929\CustomEntityLoader;
 
+use InvalidArgumentException;
 use InvalidStateException;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ListTag;
@@ -53,7 +54,10 @@ final class EntityRegistry {
 	}
 
 	public function remove(string $identifier) : self {
-		unset($this->entries[$identifier]); //TODO: If the identifier is not actually registered, it throws an exception.
+		if (!isset($this->entries[$identifier])) {
+			throw new InvalidArgumentException("The specified identifier has not been registered.");
+		}
+		unset($this->entries[$identifier]);
 		$this->isDirty = true;
 		return $this;
 	}
