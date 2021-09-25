@@ -21,12 +21,12 @@ final class CustomEntityLoader extends PluginBase {
 
 	private static ?EntityRegistry $registry = null;
 
-	public static function getCustomEntityRegistry() : EntityRegistry {
+	public static function getEntityRegistry() : EntityRegistry {
 		return self::$registry ??= new EntityRegistry();
 	}
 
 	protected function onLoad() : void {
-		$registry = self::getCustomEntityRegistry();
+		$registry = self::getEntityRegistry();
 		$this->saveResource(self::ENTITIES_FILE);
 		$this->saveResource(self::ENTITIES_FILE_EXAMPLE);
 		/** @var CompoundTag $root */
@@ -46,7 +46,7 @@ final class CustomEntityLoader extends PluginBase {
 		$this->getServer()->getPluginManager()->registerEvent(DataPacketSendEvent::class, function(DataPacketSendEvent $ev) : void {
 			foreach ($ev->getPackets() as $packet) {
 				if ($packet instanceof AvailableActorIdentifiersPacket) {
-					$packet->identifiers = self::getCustomEntityRegistry()->getIdentifierTag();
+					$packet->identifiers = self::getEntityRegistry()->getIdentifierTag();
 					break;
 				}
 			}
