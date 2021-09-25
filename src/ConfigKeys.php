@@ -6,7 +6,6 @@ namespace Rush2929\CustomEntityLoader;
 
 interface ConfigKeys {
 
-	public const ENTITIES = "entities";
 	public const ENTITY_IDENTIFIER = "identifier";
 	public const ENTITY_BEHAVIOR_ID = "behavior_id";
 	public const ENTITY_RUNTIME_ID = "runtime_id";
