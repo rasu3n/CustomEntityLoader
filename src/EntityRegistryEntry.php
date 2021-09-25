@@ -6,7 +6,7 @@ namespace Rush2929\CustomEntityLoader;
 
 use pocketmine\nbt\tag\CompoundTag;
 
-final class CustomEntityEntry {
+final class EntityRegistryEntry {
 
 	public const TAG_BEHAVIOR_ID = "bid"; //TAG_String TODO: naming
 	public const TAG_HAS_SPAWN_EGG = "hasspawnegg"; //TAG_Byte
@@ -45,9 +45,9 @@ final class CustomEntityEntry {
 		private bool $isSummonable = false
 	) {
 		if ($this->runtimeId !== null) {
-			CustomEntityRegistry::validateRuntimeId($this->runtimeId);
+			EntityRegistry::validateRuntimeId($this->runtimeId);
 		}
-		CustomEntityRegistry::validateIdentifier($this->identifier);
+		EntityRegistry::validateIdentifier($this->identifier);
 	}
 
 	public function getIdentifier() : string { return $this->identifier; }

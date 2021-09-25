@@ -7,7 +7,7 @@ namespace Rush2929\CustomEntityLoader;
 use InvalidStateException;
 use pocketmine\utils\Limits;
 
-final class CustomEntityRegistry {
+final class EntityRegistry {
 
 	private const THE_IDENTIFIER_IS_INVALID = "The identifier is invalid.";
 
@@ -21,10 +21,10 @@ final class CustomEntityRegistry {
 		}
 	}
 
-	/** @var array<string, CustomEntityEntry> */
+	/** @var array<string, EntityRegistryEntry> */
 	private array $entities = [];
 
-	public function add(CustomEntityEntry $entry, bool $force = false) : self {
+	public function add(EntityRegistryEntry $entry, bool $force = false) : self {
 		if ($force) {
 			CustomEntityLoader::checkIsAlreadySentAvailableActorIdentifiers();
 		}
@@ -37,12 +37,12 @@ final class CustomEntityRegistry {
 		return $this;
 	}
 
-	public function get(string $identifier) : ?CustomEntityEntry {
+	public function get(string $identifier) : ?EntityRegistryEntry {
 		return $this->entities[$identifier] ?? null;
 	}
 
 	/**
-	 * @return array<string, CustomEntityEntry>
+	 * @return array<string, EntityRegistryEntry>
 	 */
 	public function getAll() : array {
 		return $this->entities;

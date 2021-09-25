@@ -16,12 +16,12 @@ final class CustomEntityLoader extends PluginBase {
 
 	private const TAG_ID_LIST = "idlist";
 
-	private static ?CustomEntityRegistry $registry = null;
+	private static ?EntityRegistry $registry = null;
 
 	private static bool $isAlreadySentAvailableActorIdentifiers = false;
 
-	public static function getCustomEntityRegistry() : CustomEntityRegistry {
-		return self::$registry ??= new CustomEntityRegistry();
+	public static function getCustomEntityRegistry() : EntityRegistry {
+		return self::$registry ??= new EntityRegistry();
 	}
 
 	public static function checkIsAlreadySentAvailableActorIdentifiers() : void {
@@ -33,7 +33,7 @@ final class CustomEntityLoader extends PluginBase {
 	protected function onEnable() : void {
 		$registry = self::getCustomEntityRegistry();
 		foreach ($this->getConfig()->get(ConfigKeys::ENTITIES, []) as $entity) {
-			$registry->add(CustomEntityEntry::fromArray($entity));
+			$registry->add(EntityRegistryEntry::fromArray($entity));
 		}
 
 		$this->getServer()->getPluginManager()->registerEvent(DataPacketSendEvent::class, function(DataPacketSendEvent $ev) : void {
