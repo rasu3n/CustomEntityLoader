@@ -7,8 +7,7 @@
 		"php": "^8.0"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "0.12.99",
-		"phpunit/phpunit": "^9.5.9"
+		"phpstan/phpstan": "0.12.99"
 	},
 	"autoload-dev": {
 		"psr-4": {
