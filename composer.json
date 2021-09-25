@@ -10,7 +10,7 @@
 		"phpstan/phpstan": "0.12.99",
 		"phpunit/phpunit": "^9.5.9"
 	},
-	"autoload": {
+	"autoload-dev": {
 		"psr-4": {
 			"Rush2929\\CustomEntityLoader\\": "src/"
 		}
