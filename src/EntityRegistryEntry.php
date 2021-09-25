@@ -28,7 +28,7 @@ final class EntityRegistryEntry {
 		);
 	}
 
-	public static function read(CompoundTag $entry) : self {
+	public static function fromTag(CompoundTag $entry) : self {
 		return new self(
 			$entry->getString(self::TAG_IDENTIFIER),
 			$entry->getString(self::TAG_BEHAVIOR_ID, ""),

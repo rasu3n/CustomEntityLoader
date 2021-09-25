@@ -35,7 +35,7 @@ final class CustomEntityLoader extends PluginBase {
 		$idList = $root->getListTag(EntityRegistry::TAG_ID_LIST);
 		/** @var CompoundTag $tag */
 		foreach ($idList as $tag) {
-			$registry->add(EntityRegistryEntry::read($tag));
+			$registry->add(EntityRegistryEntry::fromTag($tag));
 		}
 		foreach ((new Config(Path::join($this->getDataFolder(), self::ENTITIES_FILE)))->getAll() as $entity) {
 			$registry->add(EntityRegistryEntry::fromArray($entity));
