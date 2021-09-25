@@ -20,7 +20,7 @@ final class EntityRegistryEntry {
 	 */
 	public static function fromArray(array $array) : self {
 		return new self(
-			$array[ConfigKeys::ENTITY_IDENTIFIER] ?? throw new InvalidStateException(ConfigKeys::ENTITY_IDENTIFIER . "is required"),
+			$array[ConfigKeys::ENTITY_IDENTIFIER] ?? throw new InvalidStateException(ConfigKeys::ENTITY_IDENTIFIER . " is required"),
 			$array[ConfigKeys::ENTITY_BEHAVIOR_ID] ?? "",
 			$array[ConfigKeys::ENTITY_RUNTIME_ID] ?? null,
 			$array[ConfigKeys::ENTITY_HAS_SPAWNEGG] ?? false,
