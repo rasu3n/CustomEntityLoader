@@ -5,5 +5,7 @@ parameters:
 	level: 8
 	paths:
 		- src
+#	scanDirectories:
+#		- phar://SimplePacketHandler.phar
 #	bootstrapFiles:
 #		- phar://PocketMine-MP.phar/vendor/autoload.php

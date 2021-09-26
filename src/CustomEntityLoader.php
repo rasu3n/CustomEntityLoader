@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Rush2929\CustomEntityLoader;
 
+use muqsit\simplepackethandler\SimplePacketHandler;
 use pocketmine\event\EventPriority;
 use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\cache\StaticPacketCache;
+use pocketmine\network\mcpe\NetworkSession;
 use pocketmine\network\mcpe\protocol\AvailableActorIdentifiersPacket;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
@@ -43,14 +45,11 @@ final class CustomEntityLoader extends PluginBase {
 	}
 
 	protected function onEnable() : void {
-		$this->getServer()->getPluginManager()->registerEvent(DataPacketSendEvent::class, function(DataPacketSendEvent $ev) : void {
-			foreach ($ev->getPackets() as $packet) {
-				if ($packet instanceof AvailableActorIdentifiersPacket) {
-					$packet->identifiers = self::getEntityRegistry()->getIdentifierTag();
-					break;
-				}
-			}
-		}, EventPriority::LOW, $this);
+		SimplePacketHandler::createInterceptor($this, EventPriority::LOW)
+			->interceptOutgoing(function(AvailableActorIdentifiersPacket $packet, NetworkSession $session) : bool {
+				$packet->identifiers = self::getEntityRegistry()->getIdentifierTag();
+				return true;
+			});
 	}
 
 	protected function onDisable() : void {
