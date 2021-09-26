@@ -75,6 +75,8 @@ final class EntityRegistry {
 	public function remove(string $identifier) : self {
 		if (!isset($this->entries[$identifier])) {
 			throw new InvalidArgumentException("The specified identifier has not been registered.");
+		} else if ($identifier === CustomEntityLoader::getFallbackEntity()) {
+			throw new InvalidArgumentException("Cannot be deleted because it is registered as a fallback.");
 		}
 		if (($runtimeId = $this->entries[$identifier]->getRuntimeId()) !== null) {
 			unset($this->runtimeIdToIdentifierMap[$runtimeId]);
