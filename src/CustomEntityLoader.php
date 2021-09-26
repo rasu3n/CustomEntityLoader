@@ -69,7 +69,7 @@ final class CustomEntityLoader extends PluginBase {
 			})
 			->interceptOutgoing(function(AddActorPacket $packet, NetworkSession $session) : bool {
 				$FALLBACK_ENTITY = self::getFallbackEntity();
-				if (($sentIdentifiers = $this->sentIdentifiers[$session] ?? null) !== null && $FALLBACK_ENTITY !== null && isset($sentIdentifiers[$FALLBACK_ENTITY]) && !isset($sentIdentifiers[$packet->type])) {
+				if (($sentIdentifiers = $this->sentIdentifiers[$session] ?? null) !== null && $FALLBACK_ENTITY !== null && !isset($sentIdentifiers[$packet->type])) {
 					$this->getLogger()->warning($session->getDisplayName() . " can't use \"$packet->type\". Instead, it sends \"$FALLBACK_ENTITY\".");
 					$packet->type = $FALLBACK_ENTITY;
 				}
